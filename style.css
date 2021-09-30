@@ -42,8 +42,8 @@
 }
 
 .qv-object-BookmarkMenu .lui-dialog {
-    width: 80vh;
-    height: clamp(27.6, 47.6, 67.6);
+    width: 60vw;
+    height: clamp(27.6vh, 47.6vh, 67.6vh);
     font-size: 1rem;
     z-index: 1024;
     font-family: "HSBC font", Arial, Helvetica, sans-serif;
@@ -170,9 +170,45 @@
 
 .qv-object-BookmarkMenu .lui-icon--bookmark {
     font-size: 1.5rem;
+    
+}
+
+.qv-object-BookmarkMenu .lui-icon--bookmark:before {
+	cursor: pointer;
 }
 
 .qv-object-BookmarkMenu .addContainer {
     gap: 0.5rem;
     padding: 1rem;
+}
+
+/*---------------Spinner -----------------------------------*/
+
+@keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+.qv-object-BookmarkMenu .spinner-overlay {
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: calc(100% - 135px);
+    position: absolute;
+    background: #fff;
+}
+
+.qv-object-BookmarkMenu .spinner-container {
+    display: inline-block;
+    display: flex;
+    align-self: center;
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(146, 146, 146, 0.6);
+    border-radius: 50%;
+    border-top-color: #d7d8d6;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
 }
