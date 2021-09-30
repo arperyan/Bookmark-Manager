@@ -1,0 +1,178 @@
+.qv-object-BookmarkMenu .bmIcon {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qv-object-BookmarkMenu .containerLabel {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    line-height: 0.7;
+}
+.qv-object-BookmarkMenu .lui-dialog__body {
+    padding: 0;
+}
+
+.qv-object-BookmarkMenu .lui-dialog__header {
+    padding: 0;
+}
+
+.qv-object-BookmarkMenu .lui-dialog_containers {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: opacity 0.2s ease-out;
+    opacity: 1;
+    z-index: 1024;
+}
+
+.qv-object-BookmarkMenu .lui-button--help {
+    cursor: pointer;
+    color: black;
+    padding: 5px 20px;
+    z-index: 1025;
+}
+
+.qv-object-BookmarkMenu .lui-dialog {
+    width: 80vh;
+    height: clamp(27.6, 47.6, 67.6);
+    font-size: 1rem;
+    z-index: 1024;
+    font-family: "HSBC font", Arial, Helvetica, sans-serif;
+}
+
+.qv-object-BookmarkMenu .lui-dialog .lui-dialog__header {
+    border-bottom: 0;
+}
+
+.qv-object-BookmarkMenu .lui-dialog__header {
+    height: auto;
+}
+
+.qv-object-BookmarkMenu .lui-modal-backgrounds {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    opacity: 0.3;
+    background-color: #000;
+    z-index: 1023;
+    transition: opacity 0.2s ease-out;
+}
+.qv-object-BookmarkMenu .bookmark-manager {
+    border: 2px solid #d9d9d9;
+    box-sizing: border-box;
+}
+
+.qv-object-BookmarkMenu .panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    height: 45px;
+}
+.qv-object-BookmarkMenu .panel-heading .header {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+.qv-object-BookmarkMenu .panel-heading .lui-input {
+    width: 170px;
+    margin: auto 15px;
+}
+.qv-object-BookmarkMenu .searchInput {
+    display: flex;
+    padding-right: 1rem;
+    align-items: center;
+}
+
+.qv-object-BookmarkMenu .clearButton {
+    border: none;
+}
+
+.qv-object-BookmarkMenu .notick {
+    display: none;
+}
+
+.qv-object-BookmarkMenu .mylui-tick {
+    padding-left: 0.8rem;
+}
+
+.qv-object-BookmarkMenu .mylui-bookmark {
+    font-size: 24px;
+}
+
+.qv-object-BookmarkMenu .panel-body {
+    padding: 15px;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.qv-object-BookmarkMenu .bookmarks {
+    border-collapse: collapse;
+}
+.qv-object-BookmarkMenu .iconContainer {
+    display: flex;
+    width: calc(100% - 2rem);
+    padding: 0.5rem 1rem !important;
+    justify-content: space-between;
+}
+
+.qv-object-BookmarkMenu .bookmarks thead {
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.qv-object-BookmarkMenu .headerName {
+    text-align: left;
+    width: 50%;
+    padding: 0.5rem 1rem !important;
+}
+
+.qv-object-BookmarkMenu .bookmarks tbody tr {
+    border-bottom: 1px solid #e6e6e6;
+    cursor: pointer;
+}
+
+/* .qv-object-BookmarkMenu .bookmarks tbody tr:last-child {
+    border-bottom: 0px;
+} */
+
+.qv-object-BookmarkMenu .bookmarks tbody tr:hover:not(:last-child) {
+    background-color: #f2f2f2 !important;
+}
+
+.qv-object-BookmarkMenu .bookmarks tbody td {
+    padding: 1rem !important;
+    width: 50%;
+}
+
+.qv-object-BookmarkMenu .bookmarks tbody td[colspan]:not([colspan="1"]) {
+    text-align: center;
+    font-style: italic;
+    width: 100%;
+}
+
+.qv-object-BookmarkMenu #no_match {
+    display: none;
+}
+
+.qv-object-BookmarkMenu .lui-icon--bookmark {
+    font-size: 1.5rem;
+}
+
+.qv-object-BookmarkMenu .addContainer {
+    gap: 0.5rem;
+    padding: 1rem;
+}
