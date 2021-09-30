@@ -39,54 +39,16 @@ define(["qlik", "jquery", "text!./style.css"], function (qlik, $, cssContent) {
             /**
              * Icon for open the modal
              */
-            let html = `<span id="bmId${tid}" class="bmIcon lui-icon lui-icon--bookmark" aria-hidden="true"></span>`;
+            let html = `<div class="bmIcon"><span id="bmId${tid}" class="lui-icon lui-icon--bookmark" aria-hidden="true"></span></div>`;
             $element.html(html);
 
             let bmButton = document.getElementById(`bmId${tid}`);
-            let hideObjects = document.querySelectorAll(".qv-object.qvt-visualization.qv-layout-full, .qv-object.qvt-visualization.qv-can-take-snapshot");
+            let hideObjects = document.querySelectorAll(".qv-object");
             let startSelect = null;
-
-            const bookmarkModal = () => {
-                bmButton.addEventListener("click", (event) => {
-                    if (event.target !== event.currentTarget && event.target.id === "close_button") {
-                        /**
-                         * remove dialog from html only when close button is selected
-                         * */
-                        $element.find(`#bm_dialog`).remove();
-                        for (var index = 0, length = hideObjects.length; index < length; index++) {
-                            hideObjects[index].style = "";
-                        }
-                        return;
-                    } else if (event.target !== event.currentTarget && event.target.id !== "close_button") return;
-                    /**
-                     *  Add the modal to the html
-                     */
-                    $element.find(`#bmId${tid}`).append(`<div id="bm_dialog" class="lui-dialog_containers" style="display: flex;">
-                  <div class="lui-modal-backgrounds"></div>
-                  <div class="lui-dialog">
-                          <div class="lui-dialog__header"></div>
-                          <div class="lui-dialog__body"></div>
-                          <div class="lui-dialog__footer">
-                              <button title="Close" id="close_button" class="lui-button  lui-dialog__button  close-button" style="display: flex;float: right;">
-                                  Close
-                                  </button>
-                          </div>
-                      </div>
-                  </div>`);
-                    for (var index = 0, length = hideObjects.length; index < length; index++) {
-                        hideObjects[index].style.zIndex = 0;
-                    }
-                    getBookmark();
-                });
-            };
-
-            bookmarkModal();
             /**
-             * Get a list of Bookmarks and add to Modal
+             * Adding the head html  - needed when creating Modal and when creating new Bookmark
              */
-            const getBookmark = () => {
-                app.getList("BookmarkList", function (items) {
-                    let htmlHead = `<div id="qv-bookmark-manager">
+            let htmlHead = `<div id="qv-bookmark-manager">
                             <div class="panel-heading">
                                 <span class="header">Bookmarks</span>
                                 <div class="searchInput">
@@ -116,8 +78,52 @@ define(["qlik", "jquery", "text!./style.css"], function (qlik, $, cssContent) {
                                 </thead>
                             </table>`;
 
-                    $element.find(".lui-dialog__header").append(htmlHead);
+            const bookmarkModal = () => {
+                bmButton.addEventListener("click", (event) => {
+                    if (event.target !== event.currentTarget && event.target.id === "close_button") {
+                        /**
+                         * remove dialog from html only when close button is selected
+                         * */
+                        $element.find(`#bm_dialog`).remove();
+                        for (var index = 0, length = hideObjects.length; index < length; index++) {
+                            hideObjects[index].style = "";
+                        }
+                        return;
+                    } else if (event.target !== event.currentTarget && event.target.id !== "close_button") return;
+                    /**
+                     *  Add the modal to the html
+                     */
+                    $element.find(`#bmId${tid}`).append(`<div id="bm_dialog" class="lui-dialog_containers" style="display: flex;">
+                  <div class="lui-modal-backgrounds"></div>
+                  <div class="lui-dialog">
+                          <div class="lui-dialog__header"></div>
+                          <div class="lui-dialog__body">
+                            <div id="qv-spinner" class="spinner-overlay">
+                                <div class="spinner-container"></div>
+                            </div>
+                          </div>
+                          <div class="lui-dialog__footer">
+                              <button title="Close" id="close_button" class="lui-button  lui-dialog__button  close-button" style="display: flex;float: right;">
+                                  Close
+                              </button>
+                          </div>
+                      </div>
+                  </div>`);
+                    for (var index = 0, length = hideObjects.length; index < length; index++) {
+                        hideObjects[index].style.zIndex = "auto";
+                    }
+                    getBookmark();
+                });
+            };
 
+            bookmarkModal();
+
+            /**
+             * Get a list of Bookmarks and add to Modal
+             */
+            const getBookmark = () => {
+                $element.find(".lui-dialog__header").append(htmlHead);
+                app.getList("BookmarkList", function (items) {
                     let html = `<table id="table" class="bookmarks">
                               <tbody>
                                 <tr id="no_match">
@@ -141,6 +147,12 @@ define(["qlik", "jquery", "text!./style.css"], function (qlik, $, cssContent) {
                     createNewBookmark();
                     searchBookmark();
                 });
+                /**
+                 * Remove spinnner once all object have been rendered
+                 * */
+                setTimeout(() => {
+                    document.getElementById("qv-spinner").remove();
+                }, 500);
             };
 
             /**
@@ -205,10 +217,29 @@ define(["qlik", "jquery", "text!./style.css"], function (qlik, $, cssContent) {
                     let name = document.getElementById("bm_name").value;
                     let description = document.getElementById("bm_desc").value;
                     if (name) {
+                        /**
+                         * Add header back
+                         */
+                        $element.find(".lui-dialog__header").append(htmlHead);
+                        /**
+                         * Add spinner
+                         * */
+                        let spinner = `<div id="qv-spinner" class="spinner-overlay">
+                                        <div class="spinner-container"></div>
+                                    </div>`;
+                        $element.find(".lui-dialog__body").append(spinner);
+
                         app.bookmark.create(name, description);
+
                         container.style.display = "none";
                         $element.find(`#qv-bookmark-manager`).remove();
                         $element.find(`#table`).remove();
+                        /**
+                         * Remove spinner once all object have been rendered
+                         * */
+                        setTimeout(() => {
+                            document.getElementById("qv-spinner").remove();
+                        }, 500);
                     }
                 });
             };
